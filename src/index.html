@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="../dist/output.css" rel="stylesheet" />
+    <script src="../JS/script.js" defer></script>
+  </head>
+  <body>
+    <!-- Wrapper -->
+    <div class="mt-12 min-h-screen">
+      <!-- Main Container -->
+      <section
+        class="max-w-2xl flex flex-col space-y-5 p-6 rounded-xl bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 m-auto"
+      >
+        <!-- My ToDo sentence -->
+        <h1 class="font-bold text-3xl text-white">My ToDo List</h1>
+        <!-- Input and Submit and Selector -->
+        <div class="flex items-center justify-between space-x-3 mb-8">
+          <!-- Input and Submit -->
+          <form
+            id="task-form"
+            class="flex justify-between items-center rounded-xl bg-white p-3 w-full space-x-3 group"
+          >
+            <input type="text" name="task" id="task" class="w-full" />
+            <button
+              type="submit"
+              class="flex items-center justify-center h-6 w-6"
+            >
+              <img
+                src="../img/button.svg "
+                class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 transition-all duration-200"
+                alt=""
+              />
+            </button>
+          </form>
+          <!-- Selector -->
+          <div>
+            <button
+              class="px-6 py-3 rounded-xl text-white font-bold nav-link relative bg-cyan-400"
+            >
+              Select
+            </button>
+            <div
+              class="dropdown-menu mt-5 absolute z-10 bg-cyan-400 px-5 py-4 rounded-xl shadow-xl scale-0 transition-all -translate-y-2 duration-300 ease-in-out text-white flex flex-col space-y-2"
+            >
+              <a id="active" href="#">Активные</a>
+              <a id="completed" href="#">Завершенные</a>
+              <a id="deleted" href="#">Удаленные</a>
+            </div>
+          </div>
+        </div>
+        <!-- Tasks Wrapper -->
+        <ul class="collection flex flex-col rounded-xl space-y-3">
+          <!-- Tasks -->
+          <!-- Example Task
+          <li
+            id="4"
+            class="flex items-center rounded-xl justify-between p-3 group bg-white"
+          >
+          <div class="flex space-x-2">
+            <label class="flex space-x-2 items-center"
+              ><input
+                type="checkbox"
+                name="checkbox"
+                class="accent-cyan-400 mr-2 checkbox"
+                id=""
+              /><form class="flex space-x-2" type="submit" id="reductForm"><input class="bg-slate-200" type="text" name="text" id="reductText" value="${currentTask.text}"/><button
+              id="2.7"
+              class="done-item flex items-center justify-center h-6 w-6 z-0 type="submit"
+            >
+              <img
+                src="../img/done.svg"
+                id="1.7"
+                class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+                alt=""
+              />
+            </button></form></label
+            >
+          </div>
+            <div id="3" class="flex gap-4">
+              <button
+                id="2.5"
+                class="reduct-item flex items-center justify-center h-6 w-6 z-0"
+              >
+                <img
+                  src="../img/pencil.svg"
+                  id="1.5"
+                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+                  alt=""
+                />
+              </button>
+              <button
+                id="2"
+                class="delete-item flex items-center justify-center h-6 w-6 z-0"
+              >
+                <img
+                  src="../img/delete.svg"
+                  id="1"
+                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+                  alt=""
+                />
+              </button>
+            </div>
+          </li>
+        --></ul>
+      </section>
+    </div>
+  </body>
+</html>
