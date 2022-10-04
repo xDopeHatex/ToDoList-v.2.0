@@ -1,5 +1,12 @@
 "use strict";
 
+// Add storage
+let storage = [];
+
+// Load
+
+loadTasks();
+
 const dropdownMenu = document.querySelector(".dropdown-menu");
 
 const navLink = document.querySelector(".nav-link");
@@ -17,9 +24,12 @@ const taskInput = document.querySelector("#task");
 const activeBtn = document.querySelector("#active");
 const completedBtn = document.querySelector("#completed");
 const deletedBtn = document.querySelector("#deleted");
+const loadBtn = document.querySelector("#loadTasks");
+const taskStatus = document.querySelector("#status");
 
-// Add storage
-let storage = [];
+console.log(form);
+
+let statusText = "Active";
 
 // Add task event
 
@@ -80,13 +90,15 @@ function addTaskToStore(e) {
   </div>`;
 
     taskList.appendChild(li);
+
+    // Status change
+    statusChange();
   }
   console.log(storage);
   e.preventDefault();
   taskInput.value = "";
+  console.log(storage);
 }
-
-console.log(storage);
 
 //Remove task event
 taskList.addEventListener(`click`, removeTask);
@@ -109,6 +121,8 @@ function removeTask(e) {
     console.log(currentTask);
 
     e.target.parentElement.parentElement.parentElement.remove();
+    // Status change
+    statusChange();
   }
   console.log(storage);
 }
@@ -134,6 +148,8 @@ function completedTask(e) {
       console.log(currentTask);
 
       e.target.parentElement.parentElement.parentElement.remove();
+      // Status change
+      statusChange();
     }
   }
   console.log(storage);
@@ -167,35 +183,21 @@ function deletedTask(e) {
 
     console.log(text);
 
+    //cgange status
+    statusText = "Deleted";
+    console.log(`------STATUS-------`);
+    console.log(statusText);
+    //update status
+    statusChange();
+
     li.innerHTML = `<div class="flex space-x-2">
     <label
-      ><input
-        type="checkbox"
-        name="checkbox"
-        class="accent-cyan-400 mr-2 checkbox"
-        id=""
-      />${text}</label
+      >${text}</label
     >
   </div>
   <div id="3" class="flex gap-4">
-              <button
-                id="2.5"
-                class="reduct-item flex items-center justify-center h-6 w-6 z-0"
-              >
-                <img
-                  src="../img/pencil.svg"
-                  id="1.5"
-                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
-                  alt=""
-                />
-              </button>
-    <button class="delete-item flex items-center justify-center h-6 w-6 z-0">
-      <img
-        src="../img/delete.svg"
-        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
-        alt=""
-      />
-    </button>
+              
+    
   </div>`;
 
     taskList.appendChild(li);
@@ -211,10 +213,12 @@ completedBtn.addEventListener(`click`, completedTasks);
 
 function completedTasks(e) {
   taskList.innerHTML = "";
+  console.log(storage);
 
   let completedTaskss = storage.filter(function (item) {
     return item.status === "completed";
   });
+  console.log(completedTaskss);
 
   completedTaskss.forEach((e) => {
     console.log("here what they got");
@@ -235,36 +239,20 @@ function completedTasks(e) {
 
     li.innerHTML = `<div class="flex space-x-2">
     <label
-      ><input
-        type="checkbox"
-        name="checkbox"
-        class="accent-cyan-400 mr-2 checkbox"
-        id=""
-      />${text}</label
+      >${text}</label
     >
   </div>
   <div id="3" class="flex gap-4">
-              <button
-                id="2.5"
-                class="reduct-item flex items-center justify-center h-6 w-6 z-0"
-              >
-                <img
-                  src="../img/pencil.svg"
-                  id="1.5"
-                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
-                  alt=""
-                />
-              </button>
-    <button class="delete-item flex items-center justify-center h-6 w-6 z-0">
-      <img
-        src="../img/delete.svg"
-        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
-        alt=""
-      />
-    </button>
+              
+  
   </div>`;
 
     taskList.appendChild(li);
+
+    //cgange status
+    statusText = "Completed";
+    //update status
+    statusChange();
   });
 
   console.log(completedTaskss);
@@ -331,6 +319,11 @@ function activeTasks(e) {
   </div>`;
 
     taskList.appendChild(li);
+
+    //cgange status
+    statusText = "Active";
+    //update status
+    statusChange();
   });
 
   console.log(activeTasks);
@@ -397,7 +390,7 @@ function reductTask(e) {
   </div>`;
     e.preventDefault();
   }
-  e.preventDefault();
+
   console.log(storage);
 }
 
@@ -462,3 +455,108 @@ function doneTask(e) {
   </div>`;
   }
 }
+let data1;
+fetch("https://jsonplaceholder.typicode.com/todos")
+  .then((response) => response.json())
+  .then((json) => {
+    data1 = json;
+    console.log(json);
+    return json;
+  });
+
+// let data2 = data.map(function (user) {
+//   return user.title;
+// });
+
+// Load Tasks
+
+loadBtn.addEventListener(`click`, loadTasks);
+
+function loadTasks() {
+  console.log(`----------------CONTROL------------------`);
+  let exit = "";
+
+  fetch("https://jsonplaceholder.typicode.com/todos")
+    .then((response) => response.json())
+    .then((json) => {
+      data1 = json;
+      console.log(json);
+      return json;
+    })
+    .then(() => {
+      data1.forEach((object) => {
+        if (storage !== []) {
+          let obj = object;
+          // console.log(obj);
+          // console.log(obj.id);
+
+          storage.forEach((object) => {
+            let id = object.id;
+            // console.log(id);
+            // console.log(object.id);
+            if (id === obj.id) {
+              exit = "yes";
+            }
+          });
+        }
+
+        // console.log(storage.id);
+        if (exit === "yes") {
+          return;
+        } else {
+          storage.push({
+            id: object.id,
+            text: `${object.title}`,
+            status: `${object.completed ? "completed" : "active"}`,
+          });
+        }
+      });
+      activeTasks();
+      statusChange();
+
+      console.log(storage);
+    });
+
+  //update status
+
+  console.log(storage);
+  console.log(`----------------CONTROL------------------`);
+}
+
+// Status change function
+
+const statusChange = function () {
+  if (statusText === "Active") {
+    //Find all active
+
+    let activeTasks = storage.filter(function (item) {
+      return item.status === "active";
+    });
+
+    //Create text in Status
+
+    taskStatus.innerHTML = `Active Tasks ${activeTasks.length}`;
+  }
+  if (statusText === "Deleted") {
+    //Find all deleted
+
+    let deletedTasks = storage.filter(function (item) {
+      return item.status === "deleted";
+    });
+
+    //Create text in Status
+
+    taskStatus.innerHTML = `Deleted Tasks ${deletedTasks.length}`;
+  }
+  if (statusText === "Completed") {
+    //Find all completed
+
+    let completedTasks = storage.filter(function (item) {
+      return item.status === "completed";
+    });
+
+    //Create text in Status
+
+    taskStatus.innerHTML = `Completed Tasks ${completedTasks.length}`;
+  }
+};

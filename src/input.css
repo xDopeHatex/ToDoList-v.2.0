@@ -8,13 +8,14 @@
 }
 
 a {
-  color: #000;
+  color: white;
   position: relative;
   text-decoration: none;
+  padding: 2px 10px;
 }
 
 a::before {
-  background: hsl(45 100% 70%);
+  background: #818cf8;
   content: "";
   inset: 0;
   position: absolute;
@@ -33,4 +34,26 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(129 140 248);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3730a3;
 }
