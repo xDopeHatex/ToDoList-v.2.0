@@ -16,6 +16,7 @@
         <!-- My ToDo sentence and Status -->
         <div class="flex justify-between items-center">
           <h1 class="font-bold text-3xl text-white">My ToDo List</h1>
+
           <div
             id="status"
             class="border-2 border-white px-6 py-3 rounded-xl text-white font-bold"
@@ -51,12 +52,23 @@
           <!-- Selector -->
           <div>
             <button
-              class="px-6 py-3 rounded-xl text-white font-bold nav-link relative bg-cyan-400 hover:bg-cyan-300 hover:shadow-xl active:bg-cyan-500 active:translate-y-0.5 transition-all duration-300"
+              class="select px-6 py-3 rounded-xl text-white font-bold nav-link relative bg-cyan-400 hover:bg-cyan-300 hover:shadow-xl transition-all duration-300 flex items-center space-x-4"
             >
-              Select
+              <p>Select</p>
+              <div class="hamburger block cursor-pointer">
+                <span
+                  class="bar block w-[25px] h-[2px] my-[3px] mx-auto transition-all duration-300 ease-in-out bg-white"
+                ></span>
+                <span
+                  class="bar block w-[25px] h-[2px] my-[3px] mx-auto transition-all duration-300 ease-in-out bg-white"
+                ></span>
+                <span
+                  class="bar block w-[25px] h-[2px] my-[3px] mx-auto transition-all duration-300 ease-in-out bg-white"
+                ></span>
+              </div>
             </button>
             <div
-              class="dropdown-menu mt-5 absolute z-10 bg-cyan-400 px-2 py-4 rounded-xl shadow-xl scale-0 transition-all -translate-y-2 duration-[0.5s] ease-in text-white flex flex-col space-y-2"
+              class="dropdown-menu mt-5 absolute z-10 bg-cyan-400 px-2 py-4 rounded-xl shadow-xl scale-0 transition-all -translate-y-2 duration-100 ease-in text-white flex flex-col space-y-2"
             >
               <a id="active" href="#">Active</a>
               <a id="completed" href="#">Completed</a>
@@ -67,7 +79,7 @@
         </div>
         <!-- Tasks Wrapper -->
         <ul
-          class="collection flex flex-col rounded-xl space-y-3 overflow-y-scroll max-h-[25rem] min-h-[11rem] pr-4"
+          class="collection flex flex-col rounded-xl space-y-3 overflow-y-auto max-h-[25rem] min-h-[11rem] pr-4"
         >
           <!-- Tasks -->
           <!-- Example Task

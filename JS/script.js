@@ -8,12 +8,15 @@ let storage = [];
 loadTasks();
 
 const dropdownMenu = document.querySelector(".dropdown-menu");
+const hamburger = document.querySelector(".hamburger");
 
 const navLink = document.querySelector(".nav-link");
 console.log(navLink);
 
 navLink.addEventListener("click", () => {
   dropdownMenu.classList.toggle("active");
+
+  hamburger.classList.toggle("active");
 });
 
 //Vars
