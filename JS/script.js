@@ -9,14 +9,38 @@ loadTasks();
 
 const dropdownMenu = document.querySelector(".dropdown-menu");
 const hamburger = document.querySelector(".hamburger");
+const overlay = document.querySelector(".overlay");
 
 const navLink = document.querySelector(".nav-link");
 console.log(navLink);
 
+// const openModal = function () {
+//   dropdownMenu.classList.add("active");
+//   overlay.classList.remove("hidden");
+
+//   hamburger.classList.add("active");
+// };
+
+const closeModal = function () {
+  dropdownMenu.classList.remove("active");
+  overlay.classList.add("hidden");
+
+  hamburger.classList.remove("active");
+};
+
 navLink.addEventListener("click", () => {
   dropdownMenu.classList.toggle("active");
+  overlay.classList.toggle("hidden");
 
   hamburger.classList.toggle("active");
+});
+
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && dropdownMenu.classList.contains("active")) {
+    closeModal();
+  }
 });
 
 //Vars
@@ -169,31 +193,25 @@ function deletedTask(e) {
     return item.status === "deleted";
   });
 
-  deletedTasks.forEach((e) => {
-    console.log("here what they got");
-    console.log(e);
-    const li = document.createElement("li");
+  if (deletedTasks.length > 0) {
+    deletedTasks.forEach((e) => {
+      console.log("here what they got");
+      console.log(e);
+      const li = document.createElement("li");
 
-    // Add class
-    li.className =
-      "flex items-center rounded-xl justify-between p-3 group bg-white";
+      // Add class
+      li.className =
+        "flex items-center rounded-xl justify-between p-3 group bg-white";
 
-    li.setAttribute("id", `${e.id}`);
+      li.setAttribute("id", `${e.id}`);
 
-    const text = e.text;
+      const text = e.text;
 
-    console.log("Here Text");
+      console.log("Here Text");
 
-    console.log(text);
+      console.log(text);
 
-    //cgange status
-    statusText = "Deleted";
-    console.log(`------STATUS-------`);
-    console.log(statusText);
-    //update status
-    statusChange();
-
-    li.innerHTML = `<div class="flex space-x-2">
+      li.innerHTML = `<div class="flex space-x-2">
     <label
       >${text}</label
     >
@@ -203,8 +221,16 @@ function deletedTask(e) {
     
   </div>`;
 
-    taskList.appendChild(li);
-  });
+      taskList.appendChild(li);
+    });
+  }
+  //cgange status
+  statusText = "Deleted";
+  console.log(`------STATUS-------`);
+  console.log(statusText);
+  //update status
+  statusChange();
+  closeModal();
 
   console.log(deletedTasks);
   console.log(storage);
@@ -256,6 +282,7 @@ function completedTasks(e) {
     statusText = "Completed";
     //update status
     statusChange();
+    closeModal();
   });
 
   console.log(completedTaskss);
@@ -327,6 +354,7 @@ function activeTasks(e) {
     statusText = "Active";
     //update status
     statusChange();
+    closeModal();
   });
 
   console.log(activeTasks);
@@ -514,8 +542,10 @@ function loadTasks() {
           });
         }
       });
+
       activeTasks();
       statusChange();
+      closeModal();
 
       console.log(storage);
     });
