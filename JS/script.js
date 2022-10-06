@@ -103,14 +103,14 @@ function addTaskToStore(e) {
                 <img
                   src="../img/pencil.svg"
                   id="1.5"
-                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200  active:bg-cyan-500 active:translate-y-0.5"
                   alt=""
                 />
               </button>
     <button class="delete-item flex items-center justify-center h-6 w-6 z-0">
       <img
         src="../img/delete.svg"
-        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
         alt=""
       />
     </button>
@@ -133,25 +133,24 @@ taskList.addEventListener(`click`, removeTask);
 function removeTask(e) {
   if (e.target.parentElement.classList.contains("delete-item")) {
     if (confirm(`Are you sure, bro?`)) {
+      console.log(e.target.parentNode.parentNode.parentNode.id);
+
+      const id = e.target.parentNode.parentNode.parentNode.id;
+
+      let currentTask = storage.find((item) => item.id == id);
+
+      console.log(currentTask);
+
+      currentTask.status = "deleted";
+
+      console.log(currentTask);
+
+      e.target.parentElement.parentElement.parentElement.remove();
+      // Status change
+      statusChange();
     }
-
-    console.log(e.target.parentNode.parentNode.parentNode.id);
-
-    const id = e.target.parentNode.parentNode.parentNode.id;
-
-    let currentTask = storage.find((item) => item.id == id);
-
-    console.log(currentTask);
-
-    currentTask.status = "deleted";
-
-    console.log(currentTask);
-
-    e.target.parentElement.parentElement.parentElement.remove();
-    // Status change
-    statusChange();
+    console.log(storage);
   }
-  console.log(storage);
 }
 
 //If checkbox checked -> remove and change status to completed
@@ -333,14 +332,14 @@ function activeTasks(e) {
                 <img
                   src="../img/pencil.svg"
                   id="1.5"
-                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
                   alt=""
                 />
               </button>
     <button class="delete-item flex items-center justify-center h-6 w-6 z-0">
       <img
         src="../img/delete.svg"
-        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
         alt=""
       />
     </button>
@@ -389,7 +388,7 @@ function reductTask(e) {
       <img
         src="../img/done.svg"
         id="1.7"
-        class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+        class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
         alt=""
       />
     </button></form></label
@@ -404,14 +403,14 @@ function reductTask(e) {
                 <img
                   src="../img/pencil.svg"
                   id="1.5"
-                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
                   alt=""
                 />
               </button>
     <button class="delete-item flex items-center justify-center h-6 w-6 z-0">
       <img
         src="../img/delete.svg"
-        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
         alt=""
       />
     </button>
@@ -469,14 +468,14 @@ function doneTask(e) {
                 <img
                   src="../img/pencil.svg"
                   id="1.5"
-                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+                  class="group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
                   alt=""
                 />
               </button>
     <button class="delete-item flex items-center justify-center h-6 w-6 z-0">
       <img
         src="../img/delete.svg"
-        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200"
+        class=" group-hover:scale-100 bg-cyan-200 rounded-md scale-0 z-0 transition-all duration-200 d active:bg-cyan-500 active:translate-y-0.5 "
         alt=""
       />
     </button>
