@@ -567,22 +567,14 @@ video {
   z-index: 0;
 }
 
-.m-auto {
-  margin: auto;
-}
-
-.my-\[3px\] {
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
 }
 
-.mt-12 {
-  margin-top: 3rem;
+.my-\[3px\] {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .mb-8 {
@@ -617,16 +609,12 @@ video {
   height: 2px;
 }
 
-.max-h-\[25rem\] {
-  max-height: 25rem;
+.max-h-\[95vh\] {
+  max-height: 95vh;
 }
 
-.min-h-screen {
-  min-height: 100vh;
-}
-
-.min-h-\[11rem\] {
-  min-height: 11rem;
+.min-h-\[20rem\] {
+  min-height: 20rem;
 }
 
 .w-full {
@@ -784,6 +772,11 @@ video {
   padding: 0.75rem;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
@@ -856,6 +849,12 @@ video {
 
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .dropdown-menu.active {
@@ -945,6 +944,10 @@ select:focus {
 
 .hidden {
   display: none;
+}
+
+.collection {
+  flex: 1;
 }
 
 .hover\:bg-cyan-300:hover {

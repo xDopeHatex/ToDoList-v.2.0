@@ -51,7 +51,7 @@ const taskInput = document.querySelector("#task");
 const activeBtn = document.querySelector("#active");
 const completedBtn = document.querySelector("#completed");
 const deletedBtn = document.querySelector("#deleted");
-const loadBtn = document.querySelector("#loadTasks");
+// const loadBtn = document.querySelector("#loadTasks")
 const taskStatus = document.querySelector("#status");
 
 console.log(form);
@@ -193,25 +193,24 @@ function deletedTask(e) {
     return item.status === "deleted";
   });
 
-  if (deletedTasks.length > 0) {
-    deletedTasks.forEach((e) => {
-      console.log("here what they got");
-      console.log(e);
-      const li = document.createElement("li");
+  deletedTasks?.forEach((e) => {
+    console.log("here what they got");
+    console.log(e);
+    const li = document.createElement("li");
 
-      // Add class
-      li.className =
-        "flex items-center rounded-xl justify-between p-3 group bg-white";
+    // Add class
+    li.className =
+      "flex items-center rounded-xl justify-between p-3 group bg-white";
 
-      li.setAttribute("id", `${e.id}`);
+    li.setAttribute("id", `${e.id}`);
 
-      const text = e.text;
+    const text = e.text;
 
-      console.log("Here Text");
+    console.log("Here Text");
 
-      console.log(text);
+    console.log(text);
 
-      li.innerHTML = `<div class="flex space-x-2">
+    li.innerHTML = `<div class="flex space-x-2">
     <label
       >${text}</label
     >
@@ -221,9 +220,9 @@ function deletedTask(e) {
     
   </div>`;
 
-      taskList.appendChild(li);
-    });
-  }
+    taskList.appendChild(li);
+  });
+
   //cgange status
   statusText = "Deleted";
   console.log(`------STATUS-------`);
@@ -249,7 +248,7 @@ function completedTasks(e) {
   });
   console.log(completedTaskss);
 
-  completedTaskss.forEach((e) => {
+  completedTaskss?.forEach((e) => {
     console.log("here what they got");
     console.log(e);
     const li = document.createElement("li");
@@ -277,13 +276,12 @@ function completedTasks(e) {
   </div>`;
 
     taskList.appendChild(li);
-
-    //cgange status
-    statusText = "Completed";
-    //update status
-    statusChange();
-    closeModal();
   });
+  //cgange status
+  statusText = "Completed";
+  //update status
+  statusChange();
+  closeModal();
 
   console.log(completedTaskss);
   console.log(storage);
@@ -300,7 +298,7 @@ function activeTasks(e) {
     return item.status === "active";
   });
 
-  activeTasks.forEach((e) => {
+  activeTasks?.forEach((e) => {
     console.log("here what they got");
     console.log(e);
     const li = document.createElement("li");
@@ -349,13 +347,12 @@ function activeTasks(e) {
   </div>`;
 
     taskList.appendChild(li);
-
-    //cgange status
-    statusText = "Active";
-    //update status
-    statusChange();
-    closeModal();
   });
+  //cgange status
+  statusText = "Active";
+  //update status
+  statusChange();
+  closeModal();
 
   console.log(activeTasks);
   console.log(storage);
@@ -501,54 +498,28 @@ fetch("https://jsonplaceholder.typicode.com/todos")
 
 // Load Tasks
 
-loadBtn.addEventListener(`click`, loadTasks);
+// loadBtn.addEventListener(`click`, loadTasks);
 
-function loadTasks() {
+async function loadTasks() {
   console.log(`----------------CONTROL------------------`);
-  let exit = "";
 
-  fetch("https://jsonplaceholder.typicode.com/todos")
-    .then((response) => response.json())
-    .then((json) => {
-      data1 = json;
-      console.log(json);
-      return json;
-    })
-    .then(() => {
-      data1.forEach((object) => {
-        if (storage !== []) {
-          let obj = object;
-          // console.log(obj);
-          // console.log(obj.id);
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+  const result = await response.json();
+  const uploadTasks = await result.map((item) => {
+    return {
+      id: item.id,
+      text: item.title,
+      status: item.completed ? "completed" : "active",
+    };
+  });
 
-          storage.forEach((object) => {
-            let id = object.id;
-            // console.log(id);
-            // console.log(object.id);
-            if (id === obj.id) {
-              exit = "yes";
-            }
-          });
-        }
+  storage = uploadTasks;
 
-        // console.log(storage.id);
-        if (exit === "yes") {
-          return;
-        } else {
-          storage.push({
-            id: object.id,
-            text: `${object.title}`,
-            status: `${object.completed ? "completed" : "active"}`,
-          });
-        }
-      });
+  activeTasks();
+  statusChange();
+  closeModal();
 
-      activeTasks();
-      statusChange();
-      closeModal();
-
-      console.log(storage);
-    });
+  console.log(storage);
 
   //update status
 
@@ -556,40 +527,191 @@ function loadTasks() {
   console.log(`----------------CONTROL------------------`);
 }
 
+// function loadTasks() {
+//   console.log(`----------------CONTROL------------------`);
+//   let exit = "";
+
+//   fetch("https://jsonplaceholder.typicode.com/todos")
+//     .then((response) => response.json())
+//     .then((json) => {
+//       data1 = json;
+//       console.log(json);
+//       return json;
+//     })
+//     .then(() => {
+//       // console.log(storage.id);
+
+//       storage.push({
+//         id: object.id,
+//         text: `${object.title}`,
+//         status: `${object.completed ? "completed" : "active"}`,
+//       });
+
+//       activeTasks();
+//       statusChange();
+//       closeModal();
+
+//       console.log(storage);
+//     });
+
+//   //update status
+
+//   console.log(storage);
+//   console.log(`----------------CONTROL------------------`);
+// }
+
 // Status change function
 
+// const statusChange = function () {
+//   if (statusText === "Active") {
+//     //Find all active
+
+//     let activeTasks = storage.filter(function (item) {
+//       return item.status === "active";
+//     });
+
+//     //Create text in Status
+
+//     taskStatus.innerHTML = `Active Tasks ${activeTasks.length}`;
+//   }
+//   if (statusText === "Deleted") {
+//     //Find all deleted
+
+//     let deletedTasks = storage.filter(function (item) {
+//       return item.status === "deleted";
+//     });
+
+//     //Create text in Status
+
+//     taskStatus.innerHTML = `Deleted Tasks ${deletedTasks.length}`;
+//   }
+//   if (statusText === "Completed") {
+//     //Find all completed
+
+//     let completedTasks = storage.filter(function (item) {
+//       return item.status === "completed";
+//     });
+
+//     //Create text in Status
+
+//     taskStatus.innerHTML = `Completed Tasks ${completedTasks.length}`;
+//   }
+// };
+
 const statusChange = function () {
-  if (statusText === "Active") {
-    //Find all active
+  switch (statusText) {
+    case "Active":
+      //Find all active
 
-    let activeTasks = storage.filter(function (item) {
-      return item.status === "active";
-    });
+      let activeTasks = storage.filter(function (item) {
+        return item.status === "active";
+      });
 
-    //Create text in Status
+      //Create text in Status
 
-    taskStatus.innerHTML = `Active Tasks ${activeTasks.length}`;
-  }
-  if (statusText === "Deleted") {
-    //Find all deleted
+      taskStatus.innerHTML = `Active Tasks ${activeTasks.length}`;
+      break;
+    case "Deleted":
+      //Find all deleted
 
-    let deletedTasks = storage.filter(function (item) {
-      return item.status === "deleted";
-    });
+      let deletedTasks = storage.filter(function (item) {
+        return item.status === "deleted";
+      });
 
-    //Create text in Status
+      //Create text in Status
 
-    taskStatus.innerHTML = `Deleted Tasks ${deletedTasks.length}`;
-  }
-  if (statusText === "Completed") {
-    //Find all completed
+      taskStatus.innerHTML = `Deleted Tasks ${deletedTasks.length}`;
+      break;
 
-    let completedTasks = storage.filter(function (item) {
-      return item.status === "completed";
-    });
+    case "Completed":
+      //Find all completed
 
-    //Create text in Status
+      let completedTasks = storage.filter(function (item) {
+        return item.status === "completed";
+      });
 
-    taskStatus.innerHTML = `Completed Tasks ${completedTasks.length}`;
+      //Create text in Status
+
+      taskStatus.innerHTML = `Completed Tasks ${completedTasks.length}`;
+      break;
+    default:
+      console.log("Switch Error");
   }
 };
+
+// function loadTasks() {
+//   console.log(`----------------CONTROL------------------`);
+//   let exit = "";
+
+//   fetch("https://jsonplaceholder.typicode.com/todos")
+//     .then((response) => response.json())
+//     .then((json) => {
+//       data1 = json;
+//       console.log(json);
+//       return json;
+//     })
+//     .then(() => {
+//       data1.forEach((object) => {
+//         if (storage !== []) {
+//           let obj = object;
+//           // console.log(obj);
+//           // console.log(obj.id);
+
+//           storage.forEach((object) => {
+//             let id = object.id;
+//             // console.log(id);
+//             // console.log(object.id);
+//             if (id === obj.id) {
+//               exit = "yes";
+//             }
+//           });
+//         }
+
+//         // console.log(storage.id);
+//         if (exit === "yes") {
+//           return;
+//         } else {
+//           storage.push({
+//             id: object.id,
+//             text: `${object.title}`,
+//             status: `${object.completed ? "completed" : "active"}`,
+//           });
+//         }
+//       });
+
+//       activeTasks();
+//       statusChange();
+//       closeModal();
+
+//       console.log(storage);
+//     });
+
+//   //update status
+
+//   console.log(storage);
+//   console.log(`----------------CONTROL------------------`);
+// }
+
+// NO 400
+
+// .then(() => {
+//   data1.forEach((object) => {
+//     if (storage !== []) {
+//       let obj = object;
+//       // console.log(obj);
+//       // console.log(obj.id);
+
+//       storage.forEach((object) => {
+//         let id = object.id;
+//         // console.log(id);
+//         // console.log(object.id);
+//         if (id === obj.id) {
+//           exit = "yes";
+//         }
+//       });
+//     }
+
+//     // console.log(storage.id);
+//     if (exit === "yes") {
+//       return;
+//     } else{}

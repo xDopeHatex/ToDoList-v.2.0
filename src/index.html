@@ -9,10 +9,10 @@
   <body>
     <!-- Wrapper -->
 
-    <div class="min-h-screen">
+    <div class="relative py-5">
       <!-- Main Container -->
       <section
-        class="max-w-2xl flex flex-col space-y-5 p-6 rounded-xl bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 m-auto mt-12 relative"
+        class="max-w-2xl max-h-[95vh] space-y-5 p-6 rounded-xl bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 mx-auto flex flex-col py-5"
       >
         <div class="overlay hidden"></div>
         <!-- My ToDo sentence and Status -->
@@ -75,13 +75,12 @@
               <a id="active" href="#">Active</a>
               <a id="completed" href="#">Completed</a>
               <a id="deleted" href="#">Deleted</a>
-              <a id="loadTasks" href="#">Load Tasks</a>
             </div>
           </div>
         </div>
         <!-- Tasks Wrapper -->
         <ul
-          class="collection flex flex-col rounded-xl space-y-3 overflow-y-auto max-h-[25rem] min-h-[11rem] pr-4"
+          class="collection flex flex-col rounded-xl space-y-3 overflow-y-auto pr-4 min-h-[20rem]"
         >
           <!-- Tasks -->
           <!-- Example Task

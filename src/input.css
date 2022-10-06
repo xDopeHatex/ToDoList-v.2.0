@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .dropdown-menu.active {
   transform: scale(1);
   transform: translateY(0);
@@ -82,4 +88,8 @@ select:focus {
 
 .hidden {
   display: none;
+}
+
+.collection {
+  flex: 1;
 }
